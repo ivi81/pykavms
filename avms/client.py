@@ -9,11 +9,13 @@ from urllib.parse import urljoin
  
 import json
 
-from avms_resp import AVMSResponce
-from avms_resp import AVMSAnalize
-from avms_resp import AVMSSummaryReport
-from avms_resp import AVMSFullReport
-from avms_resp import AVMSProcessingError
+from .resp import AVMSResponce
+from .resp import AVMSAnalize
+from .resp import AVMSSummaryReport
+from .resp import AVMSFullReport
+from .resp import AVMSProcessingError
+
+#__all__=('AVMScaner')
 
 def file_open_error_track_(fn):
     """

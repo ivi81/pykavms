@@ -3,6 +3,7 @@
 
 from requests.models import Response
 
+#__all__=(' AVMSAnalize')
 class AVMSResponce:
     '''
     Класс для работы с ответом AVS Multiscaner
@@ -46,7 +47,6 @@ class AVMSResponce:
         Получение результата
         '''
         return self._resp.get('ok')
-
 
 class AVMSAnalize(AVMSResponce):
     '''
