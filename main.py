@@ -7,23 +7,24 @@ from os.path import join
 
 from os.path import dirname
 from os.path import join 
+import sys
 
-from avms import AVMScaner
-from avms_resp import AVMSAnalize
-from avms_resp import AVMSSummaryReport
+from avms import client
+from avms import resp
+#from avms import AVMSSummaryReport
 
 
-from config import cfg
+from  tests.test_cfg import load_config
 
 import logging
 import http.client as http_client
 
 def load_test_config():
     current_dir_path_= dirname(abspath(getsourcefile(lambda:0)))
-    test_file_path=join(current_dir_path_,"tests/48569fc2764a5002cbc2f27895fddcaf.zip_")
+    test_file_path=join(current_dir_path_,"tests_data/48569fc2764a5002cbc2f27895fddcaf.zip_")
     current_dir_path_= dirname(abspath(getsourcefile(lambda:0)))
-    config_path=join(current_dir_path_,"tests/test_cfg.ini")
-    conf=cfg.load_config(config_path)
+    config_path=join(current_dir_path_,"tests_data/test_cfg.ini")
+    conf=load_config(config_path)
     scan_cfg=conf['multiscaner']
     return scan_cfg,test_file_path
 
@@ -39,12 +40,12 @@ def logger_on():
 if __name__ == '__main__':
 
 
-    cfg, fpath=load_test_config()
+    test_cfg, fpath=load_test_config()
 
     #logger_on()
     
     files=(fpath,"bad/file/path") 
-    ms=AVMScaner( cfg['host'], cfg['token']) 
+    ms=client.AVMScaner( test_cfg['host'], test_cfg['token']) 
 
     #Отправляем файлы на проверку
     send_files_result=ms.send_files(files)
@@ -58,6 +59,7 @@ if __name__ == '__main__':
 
            # Извлекаем идентификатор
            id=v.get_analyze_id()
+           print ("analyzeId: "+id+"\n")
            if id is not None:
 
                #получаем кратуий отчет по файлу
