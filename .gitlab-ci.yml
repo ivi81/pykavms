@@ -1,14 +1,34 @@
-
+default:
+  tags:
+    - builder
+    
 stages:
   - build 
 
+before_script:
+  - echo "CI_SERVER_HOST=${CI_SERVER_HOST}"
+  - echo "CI_PROJECT_NAMESPACE=${CI_PROJECT_NAMESPACE}"
+  - echo "CI_SERVER_HOST=${CI_SERVER_HOST}"
+  - echo "GITLAB_USER_LOGIN=${GITLAB_USER_LOGIN}"
+  - echo "CI_REGISTRY_USER=${CI_REGISTRY_USER}"
+  - echo "CI_JOB_TOKEN=${CI_JOB_TOKEN}"
+  - echo "CI_REGISTRY=${CI_REGISTRY}"
+  - echo "CI_API_V4_URL=${CI_API_V4_URL}"
+  - echo "CI_PROJECT_ID=${CI_PROJECT_ID}"
+  - echo "CI_COMMIT_TAG=${CI_COMMIT_TAG}"
+  #- docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+
+
 build-package:
   stage: build
-  image: python:3.7
+  image: python:latest
   script:
-    - pip install twine
-    - python setup.py  bdist_wheel
-    - TWINE_PASSWORD=${CI_JOB_TOKEN} TWINE_USERNAME=gitlab-ci-token python -m twine upload --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi dist/avms-${CI_COMMIT_TAG}*
-    
-  #only:
-  #  - tags
+    - pip3 install twine
+    - PACKAGE_VERSION=${CI_COMMIT_TAG} python3 setup.py  bdist_wheel
+    - TWINE_PASSWORD=${CI_JOB_TOKEN} TWINE_USERNAME=${CI_REGISTRY_USER} python3 -m twine upload --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi dist/avms-${CI_COMMIT_TAG}*
+  only:
+    - tags
+  when: manual
+   # refs:
+   #   - main
+

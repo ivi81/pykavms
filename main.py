@@ -39,7 +39,6 @@ def logger_on():
 
 if __name__ == '__main__':
 
-
     test_cfg, fpath=load_test_config()
 
     #logger_on()
