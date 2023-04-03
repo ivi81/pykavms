@@ -28,7 +28,7 @@ def file_open_error_track_(fn):
         except FileNotFoundError as e:
           print(e.errno)
           err_msg="неудалось открыть файл"
-          print(err_msg+f": {e.filename}\n")
+          print(f"error:{err_msg}"+f": filename = {e.filename}\n")
           return AVMSProcessingError(err_msg)
        
 
@@ -44,7 +44,7 @@ def connection_error_track_(fn):
            return fn(self,*args,**kwargs)
         except ConnectionError:
           err_msg="неудалось подключиться к ресурсу."
-          print(err_msg)
+          print(f"error:{err_msg}")
           return AVMSProcessingError(err_msg)
     return http_responce_wraper
 
@@ -58,7 +58,7 @@ def json_decode_error_track_(fn):
            return fn(self,*args,**kwargs)
         except json.JSONDecodeError:
             err_msg="получен ответ не в json формате"
-            print(err_msg)
+            print(f"error:{err_msg}")
             return AVMSProcessingError(err_msg)
              
     return http_responce_wraper
@@ -130,6 +130,7 @@ class AVMScaner():
 
     @file_open_error_track_       
     @connection_error_track_
+    @json_decode_error_track_
     def _send_file(self,filePath,
                   exec_env='Win10_x64',
                   exec_time=100, 
@@ -238,7 +239,7 @@ class AVMScaner():
         """
         Повторная отправка файла на анализ
         """
-        requests.post(f"https://{self.endpoint}/{analyzeID}",)
+        requests.post(f"https://{self._endpoint}/{analyzeID}",)
     
     @connection_error_track_
     def get_full_report(self, analyzeID):

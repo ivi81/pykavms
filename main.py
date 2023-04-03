@@ -44,6 +44,7 @@ if __name__ == '__main__':
     #logger_on()
     
     files=(fpath,"bad/file/path") 
+    #files=(fpath)
     ms=client.AVMScaner( test_cfg['host'], test_cfg['token']) 
 
     #Отправляем файлы на проверку
