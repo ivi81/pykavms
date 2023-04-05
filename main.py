@@ -9,8 +9,8 @@ from os.path import dirname
 from os.path import join 
 import sys
 
-from avms import client
-from avms import resp
+from pykavms import client
+from pykavms import resp
 #from avms import AVMSSummaryReport
 
 

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding:utf-8 -*-
 
+
 from requests.models import Response
 from json import JSONDecodeError
 

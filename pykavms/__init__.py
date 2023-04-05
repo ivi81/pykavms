@@ -2,7 +2,6 @@
 Пакет avm реализует работу с api antivirus multiscaner.
 
 ivi
-alex.ivanov@gmail.com
 # License: BSD
 """
 

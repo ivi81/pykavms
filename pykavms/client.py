@@ -6,8 +6,13 @@ from os.path import basename
 
 import requests
 from urllib.parse import urljoin
- 
-import json
+import sys
+
+if "simplejson" in sys.modules:
+    import simplejson as json
+else:
+    import json
+
 
 from .resp import AVMSResponce
 from .resp import AVMSAnalize

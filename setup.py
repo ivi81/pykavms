@@ -4,13 +4,13 @@
 
 import os
 from setuptools import setup, find_packages
-setup(name='avms',
+setup(name='pykavms',
       version=os.getenv('PACKAGE_VERSION','0.0.dev0'),
       url='',
       license='MIT',
       author='Ippolitov Ilya',
       author_email='',
-      description='Antivirus Multiscaner Client for python3',
+      description='Kaspersky Antivirus Multiscaner Client for python3',
       packages=find_packages(exclude=['tests']),
       long_description=open('README.md').read(),
       zip_safe=False,
